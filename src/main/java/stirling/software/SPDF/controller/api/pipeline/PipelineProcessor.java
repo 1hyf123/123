@@ -118,8 +118,8 @@ public class PipelineProcessor {
                             MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
                             body.add("fileInput", file);
                             for (Entry<String, Object> entry : parameters.entrySet()) {
-                                if (entry.getValue() instanceof List) {
-                                    List<?> list = (List<?>) entry.getValue();
+                                if (entry.getValue() instanceof List<?> entryList) {
+                                    List<?> list = entryList;
                                     for (Object item : list) {
                                         body.add(entry.getKey(), item);
                                     }
@@ -139,7 +139,7 @@ public class PipelineProcessor {
                                 log.info("Skipping file due to filtering {}", operation);
                                 continue;
                             }
-                            if (!response.getStatusCode().equals(HttpStatus.OK)) {
+                            if (!HttpStatus.OK.equals(response.getStatusCode())) {
                                 logPrintStream.println("Error: " + response.getBody());
                                 hasErrors = true;
                                 continue;
@@ -180,8 +180,8 @@ public class PipelineProcessor {
                         body.add("fileInput", file);
                     }
                     for (Entry<String, Object> entry : parameters.entrySet()) {
-                        if (entry.getValue() instanceof List) {
-                            List<?> list = (List<?>) entry.getValue();
+                        if (entry.getValue() instanceof List<?> entryList) {
+                            List<?> list = entryList;
                             for (Object item : list) {
                                 body.add(entry.getKey(), item);
                             }
@@ -191,7 +191,7 @@ public class PipelineProcessor {
                     }
                     ResponseEntity<byte[]> response = sendWebRequest(url, body);
                     // Handle the response
-                    if (response.getStatusCode().equals(HttpStatus.OK)) {
+                    if (HttpStatus.OK.equals(response.getStatusCode())) {
                         processOutputFiles(operation, response, newOutputFiles);
                     } else {
                         // Log error if the response status is not OK

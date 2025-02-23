@@ -158,8 +158,8 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
         String clientId = null;
         OAUTH2 oauth = applicationProperties.getSecurity().getOauth2();
 
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+        if (authentication instanceof OAuth2AuthenticationToken oauth2Token) {
+            OAuth2AuthenticationToken oauthToken = oauth2Token;
             registrationId = oauthToken.getAuthorizedClientRegistrationId();
 
             try {
